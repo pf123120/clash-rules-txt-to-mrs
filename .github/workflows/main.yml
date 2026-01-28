@@ -75,6 +75,7 @@ jobs:
                 head -n 20 "$f"
                 exit 8
               fi
+              echo "✔️ Converted $name.mrs"
               continue
             fi
             if ! mihomo convert-ruleset domain yaml "$f" "mrs/$name.mrs"; then
