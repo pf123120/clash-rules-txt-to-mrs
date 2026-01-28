@@ -69,7 +69,15 @@ jobs:
               echo "Skipping applications (classical)"
               continue
             fi
-            if ! mihomo convert-ruleset domain text "$f" "mrs/$name.mrs"; then
+            if [ "$name" = "telegramcidr" ] || [ "$name" = "cncidr" ] || [ "$name" = "lancidr" ]; then
+              if ! mihomo convert-ruleset ipcidr yaml "$f" "mrs/$name.mrs"; then
+                echo "❌ Failed to convert $name"
+                head -n 20 "$f"
+                exit 8
+              fi
+              continue
+            fi
+            if ! mihomo convert-ruleset domain yaml "$f" "mrs/$name.mrs"; then
               echo "❌ Failed to convert $name"
               head -n 20 "$f"
               exit 8
